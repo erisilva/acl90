@@ -52,7 +52,7 @@
                 <td class="text-nowrap">{{$user->email}}</td>
                 <td>
                 @if($user->active == 'N')
-                    <i class="bi bi-file-lock-fill"></i>  
+                <span class="badge bg-warning text-dark"><i class="bi bi-file-lock-fill"></i> Bloqueado</span>
                 @endif
                 </td>
                 <td>
@@ -96,7 +96,7 @@
         </form>
         <!-- Seleção de número de resultados por página -->
         <div class="mb-3 py-3">
-          <select class="form-control" name="perpage" id="perpage">
+          <select class="form-select" name="perpage" id="perpage">
             @foreach($perpages as $perpage)
             <option value="{{$perpage->valor}}"  {{($perpage->valor == session('perPage')) ? 'selected' : ''}}>{{$perpage->nome}}</option>
             @endforeach

@@ -228,4 +228,28 @@ class UserController extends Controller
 
         return redirect(route('users.index'));
     }
+
+    public function exportcsv()
+    {
+        if (Gate::denies('user-export')) {
+            abort(403, 'Acesso negado.');
+        }
+
+    }
+
+    public function exportxls()
+    {
+        if (Gate::denies('user-export')) {
+            abort(403, 'Acesso negado.');
+        }
+
+    }
+
+    public function exportpdf()
+    {
+        if (Gate::denies('user-export')) {
+            abort(403, 'Acesso negado.');
+        }
+
+    }     
 }

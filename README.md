@@ -16,6 +16,7 @@ Constuído com a framework [Laravel 9](https://laravel.com/) e utiliza como fron
 - [Bootstrap Multiselect](https://github.com/davidstutz/bootstrap-multiselect)
 - [Captcha for Laravel](https://github.com/mewebstudio/captcha) Nota: Habilitar a extenção extension=gd no php.ini
 - [Laravel package for Fpdf](https://github.com/codedge/laravel-fpdf) **Muito velha**
+- [laravel excel export lib](https://laravel-excel.com/)
 - Utilizo os temas do site [Bootswatch](https://bootswatch.com/)
 
 ## Requisitos

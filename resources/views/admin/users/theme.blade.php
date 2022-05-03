@@ -19,7 +19,7 @@
                         <div class="mb-3 row">
                             <label for="theme_id" class="col-sm-4 col-form-label text-end">Escolha o tema</label>
                             <div class="col-md-6">
-                                <select class="form-control {{ $errors->has('theme_id') ? ' is-invalid' : '' }}" name="theme_id" id="theme_id">
+                                <select class="form-select {{ $errors->has('theme_id') ? ' is-invalid' : '' }}" name="theme_id" id="theme_id">
                                     <option value="{{Auth::user()->theme->id}}" selected="true">&rarr; {{ Auth::user()->theme->name . " - " . Auth::user()->theme->description }}</option>        
                                     @foreach($themes as $theme)
                                     <option value="{{$theme->id}}">{{ $theme->name . " - " . $theme->description }}</option>

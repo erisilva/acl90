@@ -177,4 +177,28 @@ class PermissionController extends Controller
 
         return redirect(route('permissions.index'));
     }
+
+    public function exportcsv()
+    {
+        if (Gate::denies('permission-export')) {
+            abort(403, 'Acesso negado.');
+        }
+
+    }
+
+    public function exportxls()
+    {
+        if (Gate::denies('permission-export')) {
+            abort(403, 'Acesso negado.');
+        }
+
+    }
+
+    public function exportpdf()
+    {
+        if (Gate::denies('permission-export')) {
+            abort(403, 'Acesso negado.');
+        }
+
+    }         
 }

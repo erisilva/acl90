@@ -91,7 +91,7 @@
         </form>
         <!-- Seleção de número de resultados por página -->
         <div class="mb-3 py-3">
-          <select class="form-control" name="perpage" id="perpage"  aria-label="Selecione número de registros/página">
+          <select class="form-select" name="perpage" id="perpage"  aria-label="Selecione número de registros/página">
             @foreach($perpages as $perpage)
             <option value="{{$perpage->valor}}"  {{($perpage->valor == session('perPage')) ? 'selected' : ''}}>{{$perpage->nome}}</option>
             @endforeach

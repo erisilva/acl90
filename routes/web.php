@@ -34,22 +34,32 @@ Route::get('/home', 'HomeController@index')->name('index');
 
 Route::prefix('admin')->namespace('Admin')->group(function () {
     /*  Operadores */
-    // nota mental :: as rotas extras devem ser declaradas antes de se declarar as rotas resources
+    # alteração de senha
     Route::get('/users/password', 'ChangePasswordController@showPasswordUpdateForm')->name('users.password');
     Route::put('/users/password/update', 'ChangePasswordController@passwordUpdate')->name('users.passwordupdate');
+    # alteração de tema
     Route::get('/users/theme', 'ChangeThemeController@showThemeUpdateForm')->name('users.theme');
     Route::put('/users/theme/update', 'ChangeThemeController@themeUpdate')->name('users.themeupdate');
+    # relatorios
     Route::get('/users/export/csv', 'UserController@exportcsv')->name('users.export.csv');
+    Route::get('/users/export/xls', 'UserController@exportxls')->name('users.export.xls');
     Route::get('/users/export/pdf', 'UserController@exportpdf')->name('users.export.pdf');
+    # crud
     Route::resource('/users', 'UserController');
 
     /* Permissões */
+    # relatorios
     Route::get('/permissions/export/csv', 'PermissionController@exportcsv')->name('permissions.export.csv');
+    Route::get('/permissions/export/xls', 'PermissionController@exportxls')->name('permissions.export.xls');
     Route::get('/permissions/export/pdf', 'PermissionController@exportpdf')->name('permissions.export.pdf');
+    # crud
     Route::resource('/permissions', 'PermissionController');
 
     /* Perfis */
+    # relatorios
     Route::get('/roles/export/csv', 'RoleController@exportcsv')->name('roles.export.csv');
+    Route::get('/roles/export/xls', 'RoleController@exportxls')->name('roles.export.xls');
     Route::get('/roles/export/pdf', 'RoleController@exportpdf')->name('roles.export.pdf');
+    # crud
     Route::resource('/roles', 'RoleController');
 });

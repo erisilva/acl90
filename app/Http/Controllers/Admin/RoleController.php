@@ -209,4 +209,28 @@ class RoleController extends Controller
 
         return redirect(route('roles.index'));
     }
+
+    public function exportcsv()
+    {
+        if (Gate::denies('role-export')) {
+            abort(403, 'Acesso negado.');
+        }
+
+    }
+
+    public function exportxls()
+    {
+        if (Gate::denies('role-export')) {
+            abort(403, 'Acesso negado.');
+        }
+
+    }
+
+    public function exportpdf()
+    {
+        if (Gate::denies('role-export')) {
+            abort(403, 'Acesso negado.');
+        }
+
+    }     
 }
