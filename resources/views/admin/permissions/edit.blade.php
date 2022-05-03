@@ -12,19 +12,17 @@
 </div>
 <div class="container">
   @if(Session::has('edited_permission'))
-  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+  <div class="alert alert-success alert-dismissible fade show" role="alert">
     <strong>Info!</strong>  {{ session('edited_permission') }}
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
   </div>
   @endif
   <form method="POST" action="{{ route('permissions.update', $permission->id) }}">
     @csrf
     @method('PUT')
-    <div class="form-row">
-      <div class="form-group col-md-6">
-        <label for="name">Nome</label>
+    <div class="row g-3">
+      <div class="col-md-6">
+        <label for="name" class="form-label">Nome</label>
         <input type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') ?? $permission->name }}">
         @if ($errors->has('name'))
         <div class="invalid-feedback">
@@ -32,22 +30,24 @@
         </div>
         @endif
       </div>
-      <div class="form-group col-md-6">
-        <label for="description">Descrição</label>
+      <div class="col-md-6">
+        <label for="description" class="form-label">Descrição</label>
         <input type="text" class="form-control{{ $errors->has('description') ? ' is-invalid' : '' }}" name="description" value="{{ old('description') ?? $permission->description }}">
         @if ($errors->has('description'))
         <div class="invalid-feedback">
         {{ $errors->first('description') }}
         </div>
-        @endif
+        @endif     
       </div>
+      <div class="col-12">
+        <button type="submit" class="btn btn-primary"><i class="bi bi-pencil-square"></i> Alterar Dados da Permissão</button>    
+      </div>  
     </div>  
-    <button type="submit" class="btn btn-primary"><i class="bi bi-pencil-square"></i> Alterar Dados da Permissão</button>
-  </form>
+   </form>
 </div>
-<div class="container">
-  <div class="float-right">
-    <a href="{{ route('permissions.index') }}" class="btn btn-secondary btn-sm" role="button"><i class="bi bi-arrow-left-square"></i> Voltar</i></a>
-  </div>
+<div class="container py-4">
+  <div class="float-end">
+    <a href="{{ route('permissions.index') }}" class="btn btn-secondary" role="button"><i class="bi bi-arrow-left-square"></i> Voltar</a>
+  </div>      
 </div>
 @endsection

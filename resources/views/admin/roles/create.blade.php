@@ -13,7 +13,6 @@
 <div class="container">
   <form method="POST" action="{{ route('roles.store') }}">
     @csrf
-
     <div class="row g-3">
       <div class="col-md-6">
         <label for="name" class="form-label">Nome</label>
@@ -62,7 +61,7 @@
 </div>
 <div class="container py-4">
   <div class="float-sm-end">
-    <a href="{{ route('roles.index') }}" class="btn btn-secondary" role="button"><i class="bi bi-arrow-left-square"></i> Voltar</i></a>
+    <a href="{{ route('roles.index') }}" class="btn btn-secondary" role="button"><i class="bi bi-arrow-left-square"></i> Voltar</a>
   </div>      
 </div>
 @endsection

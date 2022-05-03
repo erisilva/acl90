@@ -11,8 +11,6 @@
         </div>
     </div>
 </div>
-
-
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -20,7 +18,6 @@
                 <div class="card-header">
                     {{ __('Login') }}
                 </div>
-
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
@@ -35,7 +32,6 @@
                                 @enderror
                             </div>
                         </div>
-
                         <div class="mb-3 row">
                             <label for="password" class="col-sm-4 col-form-label text-end">Senha</label>
                             <div class="col-sm-8">
@@ -47,10 +43,6 @@
                                 @enderror
                             </div>
                         </div>
-
-
-
-
                         <div class="mb-3 row">
                             <label for="captcha_img" class="col-sm-4 col-form-label"></label>
                             <div class="col-sm-8">
@@ -62,8 +54,6 @@
                                 </div>
                             </div>    
                         </div>
-
-
                         <div class="mb-3 row">
                             <label for="captcha" class="col-sm-4 col-form-label text-end">Captcha</label>
 
@@ -76,10 +66,6 @@
                                 @enderror
                             </div>
                         </div>
-
-
-
-
                         <div class="mb-3 row">
                             <div class="col-sm-6 offset-sm-4">
                                 <div class="form-check">
@@ -90,7 +76,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="mb-3 row">
                             <div class="col-sm-8 offset-sm-4">
                                 <button type="submit" class="btn btn-primary">

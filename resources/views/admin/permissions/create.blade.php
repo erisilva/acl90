@@ -40,7 +40,7 @@
 </div>
 <div class="container py-4">
   <div class="float-end">
-    <a href="{{ route('permissions.index') }}" class="btn btn-secondary" role="button"><i class="bi bi-arrow-left-square"></i> Voltar</i></a>
+    <a href="{{ route('permissions.index') }}" class="btn btn-secondary" role="button"><i class="bi bi-arrow-left-square"></i> Voltar</a>
   </div>      
 </div>
 @endsection

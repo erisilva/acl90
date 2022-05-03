@@ -8,26 +8,23 @@
                 <div class="card-header">Alteração de Senha</div>
                 <div class="card-body">
                     @if(Session::has('password_altered'))
-                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
                         <strong>Info!</strong>  {{ session('password_altered') }}
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                        </button>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                     @endif
                     @if(Session::has('password_wrong'))
                     <div class="alert alert-warning alert-dismissible fade show" role="alert">
                         <strong>Info!</strong>  {{ session('password_wrong') }}
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                        </button>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                     @endif
                     <form method="POST" action="{{ route('users.passwordupdate') }}">
                         @csrf
                         @method('PUT')
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">Senha Atual</label>
+
+                        <div class="mb-3 row">
+                            <label for="password" class="col-sm-4 col-form-label text-end">Senha Atual</label>
                             <div class="col-md-6">
                                 <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
                                 @if ($errors->has('password'))
@@ -37,8 +34,8 @@
                                 @endif
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <label for="newpassword" class="col-md-4 col-form-label text-md-right">Nova Senha</label>
+                        <div class="mb-3 row">
+                            <label for="newpassword" class="col-sm-4 col-form-label text-end">Nova Senha</label>
                             <div class="col-md-6">
                                 <input id="newpassword" type="password" class="form-control{{ $errors->has('newpassword') ? ' is-invalid' : '' }}" name="newpassword" required>
                                 @if ($errors->has('newpassword'))
@@ -48,8 +45,8 @@
                                 @endif
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <label for="newpassword_confirmation" class="col-md-4 col-form-label text-md-right">Confirme a Nova Senha</label>
+                        <div class="mb-3 row">
+                            <label for="newpassword_confirmation" class="col-sm-4 col-form-label text-end">Confirme a Nova Senha</label>
                             <div class="col-md-6">
                                 <input id="newpassword_confirmation" type="password" class="form-control{{ $errors->has('newpassword_confirmation') ? ' is-invalid' : '' }}" name="newpassword_confirmation" required>
                                 @if ($errors->has('newpassword_confirmation'))
@@ -58,14 +55,14 @@
                                     </span>
                                 @endif
                             </div>
-                        </div>
-                        <div class="form-group row mb-0">
-                            <div class="col-md-8 offset-md-4">
+                        </div>   
+                        <div class="mb-3 row">
+                            <div class="col-sm-8 offset-sm-4">
                                 <button type="submit" class="btn btn-primary">
                                     <i class="bi bi-key"></i> Trocar Senha
                                 </button>
-                            </div>
-                        </div>
+                            </div>    
+                         </div>   
                     </form>
                 </div>
             </div>

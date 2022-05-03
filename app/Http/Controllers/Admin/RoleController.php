@@ -120,7 +120,13 @@ class RoleController extends Controller
      */
     public function show($id)
     {
-        //
+        if (Gate::denies('role-show')) {
+            abort(403, 'Acesso negado.');
+        }
+
+        $role = Role::findOrFail($id);
+
+        return view('admin.roles.show', compact('role'));
     }
 
     /**
@@ -131,7 +137,17 @@ class RoleController extends Controller
      */
     public function edit($id)
     {
-        //
+        if (Gate::denies('role-edit')) {
+            abort(403, 'Acesso negado.');
+        }
+
+        // perfil que será alterado
+        $role = Role::findOrFail($id);
+
+        // listagem de perfis (roles)
+        $permissions = Permission::orderBy('name','asc')->get();
+
+        return view('admin.roles.edit', compact('role', 'permissions'));
     }
 
     /**
@@ -143,7 +159,36 @@ class RoleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+          'name' => 'required',
+          'description' => 'required',
+        ]);
+
+        $role = Role::findOrFail($id);
+
+        // recebe todos valores entrados no formulário
+        $input = $request->all();
+
+        // remove todos as permissões vinculadas a esse operador
+        $permissions = $role->permissions;
+        if(count($permissions)){
+            foreach ($permissions as $key => $value) {
+               $role->permissions()->detach($value->id);
+            }
+        }
+
+        // vincula os novas permissões desse operador
+        if(isset($input['permissions']) && count($input['permissions'])){
+            foreach ($input['permissions'] as $key => $value) {
+               $role->permissions()->attach($value);
+            }
+        }
+            
+        $role->update($input);
+        
+        Session::flash('edited_role', 'Perfil alterado com sucesso!');
+
+        return redirect(route('roles.edit', $id));
     }
 
     /**
@@ -154,6 +199,14 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if (Gate::denies('role-delete')) {
+            abort(403, 'Acesso negado.');
+        }
+
+        Role::findOrFail($id)->delete();
+
+        Session::flash('deleted_role', 'Permissão excluída com sucesso!');
+
+        return redirect(route('roles.index'));
     }
 }

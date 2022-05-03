@@ -11,7 +11,11 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Styles -->
+    @if (Auth::guest())
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+    @else
+    <link rel="stylesheet" href="{{ asset('css/' . Auth::user()->theme->filename) }}">
+    @endif
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
 
     <!-- Custom css -->
@@ -63,12 +67,6 @@
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                             </li>
                         @endif
-
-                        @if (Route::has('register'))
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                            </li>
-                        @endif
                     @else
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
@@ -87,7 +85,7 @@
                                     <a class="dropdown-item" href="{{ route('users.password') }}"><i class="bi bi-key-fill"></i></i> Trocar Senha</a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="#"><i class="bi bi-palette"></i> Temas</a>
+                                    <a class="dropdown-item" href="{{ route('users.theme') }}"><i class="bi bi-palette"></i> Temas</a>
                                 </li>
 
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">

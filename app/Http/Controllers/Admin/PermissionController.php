@@ -109,7 +109,13 @@ class PermissionController extends Controller
      */
     public function show($id)
     {
-        //
+        if (Gate::denies('permission-show')) {
+            abort(403, 'Acesso negado.');
+        }
+
+        $permission = Permission::findOrFail($id);
+
+        return view('admin.permissions.show', compact('permission'));
     }
 
     /**
@@ -120,7 +126,14 @@ class PermissionController extends Controller
      */
     public function edit($id)
     {
-        //
+        if (Gate::denies('permission-edit')) {
+            abort(403, 'Acesso negado.');
+        }
+
+        // usuário que será alterado
+        $permission = Permission::findOrFail($id);
+
+        return view('admin.permissions.edit', compact('permission'));
     }
 
     /**
@@ -132,7 +145,18 @@ class PermissionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+          'name' => 'required',
+          'description' => 'required',
+        ]);
+
+        $permission = Permission::findOrFail($id);
+            
+        $permission->update($request->all());
+        
+        Session::flash('edited_permission', 'Permissão alterada com sucesso!');
+
+        return redirect(route('permissions.edit', $id));
     }
 
     /**
@@ -143,6 +167,14 @@ class PermissionController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if (Gate::denies('permission-delete')) {
+            abort(403, 'Acesso negado.');
+        }
+
+        Permission::findOrFail($id)->delete();
+
+        Session::flash('deleted_permission', 'Permissão excluída com sucesso!');
+
+        return redirect(route('permissions.index'));
     }
 }

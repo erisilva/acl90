@@ -37,6 +37,8 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
     // nota mental :: as rotas extras devem ser declaradas antes de se declarar as rotas resources
     Route::get('/users/password', 'ChangePasswordController@showPasswordUpdateForm')->name('users.password');
     Route::put('/users/password/update', 'ChangePasswordController@passwordUpdate')->name('users.passwordupdate');
+    Route::get('/users/theme', 'ChangeThemeController@showThemeUpdateForm')->name('users.theme');
+    Route::put('/users/theme/update', 'ChangeThemeController@themeUpdate')->name('users.themeupdate');
     Route::get('/users/export/csv', 'UserController@exportcsv')->name('users.export.csv');
     Route::get('/users/export/pdf', 'UserController@exportpdf')->name('users.export.pdf');
     Route::resource('/users', 'UserController');

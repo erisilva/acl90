@@ -11,39 +11,35 @@
 </div>
 <div class="container">
   @if(Session::has('edited_user'))
-  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+  <div class="alert alert-success alert-dismissible fade show" role="alert">
     <strong>Info!</strong>  {{ session('edited_user') }}
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
   </div>
   @endif
   <form method="POST" action="{{ route('users.update', $user->id) }}">
     @csrf
     @method('PUT')
-    <div class="form-row">
-      <div class="form-group col-md-6">
-        <label for="name">Nome</label>
+    <div class="row g-3">
+      <div class="col-md-6">
+        <label for="name" class="form-label">Nome</label>
         <input type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') ?? $user->name }}">
         @if ($errors->has('name'))
         <div class="invalid-feedback">
         {{ $errors->first('name') }}
         </div>
-        @endif
+        @endif      
       </div>
-      <div class="form-group col-md-6">
-        <label for="email">E-mail</label>
+      <div class="col-md-6">
+        <label for="email" class="form-label">E-mail</label>
         <input type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') ?? $user->email }}">
         @if ($errors->has('email'))
         <div class="invalid-feedback">
         {{ $errors->first('email') }}
         </div>
-        @endif
+        @endif      
       </div>
-    </div>
-    <div class="form-row">
-      <div class="form-group col-md-6">
-        <label for="password">Nova Senha</label>
+      <div class="col-md-6">
+        <label for="password" class="form-label">Nova Senha</label>
         <input type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password">
         @if ($errors->has('password'))
         <div class="invalid-feedback">
@@ -51,21 +47,19 @@
         </div>
         @endif
       </div>
-    </div>
-    <div class="form-row">
-      <div class="form-group">
+      <div class="col-md-6">
         <div class="form-check">
-            <input class="form-check-input" type="checkbox" name="active" {{ ($user->active == 'Y') ? 'checked' : '' }}>
-            <label class="form-check-label" for="active">
-              Operador Ativo
-            </label>
-          </div>
+          <input class="form-check-input" type="checkbox" name="active" {{ ($user->active == 'Y') ? 'checked' : '' }}>
+          <label class="form-check-label" for="active">
+            Operador Ativo
+          </label>
+        </div>        
       </div>
-    </div>
-    <div class="container bg-primary text-white">
-      <p class="text-center">Perfis</p>
-    </div>
-    <div class="form-row">
+
+      <div class="col-12">
+        <p class="text-center bg-primary text-white">Perfis</p>  
+      </div>
+
       @foreach($roles as $role)
         @php
           $checked = '';
@@ -85,20 +79,22 @@
             }
           }
         @endphp
-      <div class="form-group col-4">
+      <div class="col-md-4">
         <div class="form-check">
             <input type="checkbox" class="form-check-input" name="roles[]" value="{{$role->id}}" {{$checked}}>
             <label class="form-check-label" for="roles">{{$role->description}}</label>
         </div>
       </div>
       @endforeach
-    </div>
-    <button type="submit" class="btn btn-primary"><i class="bi bi-pencil-square"></i> Alterar Dados do Operador</button>
+      <div class="col-12">
+        <button type="submit" class="btn btn-primary"><i class="bi bi-pencil-square"></i> Alterar Dados do Operador</button>
+      </div> 
+    </div>    
   </form>
 </div>
-<div class="container">
-  <div class="float-right">
-    <a href="{{ route('users.index') }}" class="btn btn-secondary btn-sm" role="button"><i class="bi bi-arrow-left-square"></i> Voltar</i></a>
-  </div>
+<div class="container py-4">
+  <div class="float-end">
+    <a href="{{ route('users.index') }}" class="btn btn-secondary" role="button"><i class="bi bi-arrow-left-square"></i> Voltar</a>
+  </div>      
 </div>
 @endsection

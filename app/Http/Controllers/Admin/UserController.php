@@ -100,6 +100,7 @@ class UserController extends Controller
 
         $user = $request->all();
         $user['active'] = 'Y'; // torna o novo registro ativo
+        $user['theme_id'] = 1; // inseri o tema de apresentação default
         $user['password'] = Hash::make($user['password']); // criptografa a senha
 
         $newUser = User::create($user); //salva
@@ -125,7 +126,14 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        // verifica o acesso
+        if (Gate::denies('user-show')) {
+            abort(403, 'Acesso negado.');
+        }
+
+        $user = User::findOrFail($id);
+
+        return view('admin.users.show', compact('user'));
     }
 
     /**
@@ -136,7 +144,17 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        if (Gate::denies('user-edit')) {
+            abort(403, 'Acesso negado.');
+        }
+
+        // usuário que será alterado
+        $user = User::findOrFail($id);
+
+        // listagem de perfis (roles)
+        $roles = Role::orderBy('description','asc')->get();
+
+        return view('admin.users.edit', compact('user', 'roles'));
     }
 
     /**
@@ -148,7 +166,48 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+         $this->validate($request, [
+          'name' => 'required',
+          'email' => 'required|email',
+        ]);
+
+        $user = User::findOrFail($id);
+
+        // atualiza a senha do usuário se esse campo tiver sido preenchido
+        if ($request->has('password') && (request('password') != "")) {
+            $input = $request->all();
+            $input['password'] = Hash::make($input['password']);
+        } else {
+            $input = $request->except('password');
+        }   
+
+        // configura se operador está habilitado ou não a usar o sistema
+        if (isset($input['active'])) {
+            $input['active'] = 'Y';
+        } else {
+            $input['active'] = 'N';
+        }
+
+        // remove todos os perfis vinculados a esse operador
+        $roles = $user->roles;
+        if(count($roles)){
+            foreach ($roles as $key => $value) {
+               $user->roles()->detach($value->id);
+            }
+        }
+
+        // vincula os novos perfis desse operador
+        if(isset($input['roles']) && count($input['roles'])){
+            foreach ($input['roles'] as $key => $value) {
+               $user->roles()->attach($value);
+            }
+        }
+
+        $user->update($input);
+        
+        Session::flash('edited_user', 'Operador alterado com sucesso!');
+
+        return redirect(route('users.edit', $id));
     }
 
     /**
@@ -159,6 +218,14 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if (Gate::denies('user-delete')) {
+            abort(403, 'Acesso negado.');
+        }
+
+        User::findOrFail($id)->delete();
+
+        Session::flash('deleted_user', 'Operador excluído com sucesso!');
+
+        return redirect(route('users.index'));
     }
 }
