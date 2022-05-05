@@ -31,7 +31,8 @@
         <li><a class="dropdown-item" href="{{ route('roles.index') }}"><i class="bi bi-layout-sidebar"></i> Perfis</a></li>
         <li><a class="dropdown-item" href="{{ route('permissions.index') }}"><i class="bi bi-layout-sidebar"></i> Permissões</a></li>
         <li><hr class="dropdown-divider"></li>
-        <li><a class="dropdown-item" href="#" id="btnExportarCSV"><i class="bi bi-file-earmark-spreadsheet-fill"></i> Exportar Planilha</a></li>
+        <li><a class="dropdown-item" href="#" id="btnExportarXLS"><i class="bi bi-file-earmark-spreadsheet-fill"></i> Exportar Planilha Excel</a></li>
+        <li><a class="dropdown-item" href="#" id="btnExportarCSV"><i class="bi bi-file-earmark-spreadsheet-fill"></i> Exportar Planilha CSV</a></li>
         <li><a class="dropdown-item" href="#" id="btnExportarPDF"><i class="bi bi-file-pdf-fill"></i> Exportar PDF</a></li>
       </ul>
     </div>
@@ -119,6 +120,12 @@ $(document).ready(function(){
         var filtro_name = $('input[name="name"]').val();
         var filtro_description = $('input[name="description"]').val();
         window.open("{{ route('permissions.export.csv') }}" + "?name=" + filtro_name + "&description=" + filtro_description,"_self");
+    });
+
+    $('#btnExportarXLS').on('click', function(){
+        var filtro_name = $('input[name="name"]').val();
+        var filtro_description = $('input[name="description"]').val();
+        window.open("{{ route('permissions.export.xls') }}" + "?name=" + filtro_name + "&description=" + filtro_description,"_self");
     });
 
     $('#btnExportarPDF').on('click', function(){

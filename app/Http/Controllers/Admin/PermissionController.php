@@ -13,6 +13,9 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\DB;
 
+use App\Exports\PermissionsExport;
+use Maatwebsite\Excel\Facades\Excel;
+
 class PermissionController extends Controller
 {
     public function __construct()
@@ -184,6 +187,12 @@ class PermissionController extends Controller
             abort(403, 'Acesso negado.');
         }
 
+        # filtragem
+        $filter_name = (request()->has('name') ? request('name') : '');
+        
+        $filter_description = (request()->has('description') ? request('description') : '');
+
+        return Excel::download(new PermissionsExport($filter_name, $filter_description), 'Permissoes_' .  date("Y-m-d H:i:s") . '.csv', \Maatwebsite\Excel\Excel::CSV);
     }
 
     public function exportxls()
@@ -192,6 +201,12 @@ class PermissionController extends Controller
             abort(403, 'Acesso negado.');
         }
 
+        # filtragem
+        $filter_name = (request()->has('name') ? request('name') : '');
+        
+        $filter_description = (request()->has('description') ? request('description') : '');
+
+        return Excel::download(new PermissionsExport($filter_name, $filter_description), 'Permissoes_' .  date("Y-m-d H:i:s") . '.xlsx', \Maatwebsite\Excel\Excel::XLSX);
     }
 
     public function exportpdf()

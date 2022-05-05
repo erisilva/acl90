@@ -15,6 +15,9 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\DB;
 
+use App\Exports\UsersExport;
+use Maatwebsite\Excel\Facades\Excel;
+
 class UserController extends Controller
 {
     public function __construct()
@@ -235,6 +238,12 @@ class UserController extends Controller
             abort(403, 'Acesso negado.');
         }
 
+        # filtragem
+        $filter_name = (request()->has('name') ? request('name') : '');
+        
+        $filter_email = (request()->has('email') ? request('email') : '');
+
+        return Excel::download(new UsersExport($filter_name, $filter_email), 'Operadores_' .  date("Y-m-d H:i:s") . '.csv', \Maatwebsite\Excel\Excel::CSV);
     }
 
     public function exportxls()
@@ -243,6 +252,12 @@ class UserController extends Controller
             abort(403, 'Acesso negado.');
         }
 
+        # filtragem
+        $filter_name = (request()->has('name') ? request('name') : '');
+        
+        $filter_email = (request()->has('email') ? request('email') : '');
+
+        return Excel::download(new UsersExport($filter_name, $filter_email), 'Operadores_' .  date("Y-m-d H:i:s") . '.xlsx', \Maatwebsite\Excel\Excel::XLSX);
     }
 
     public function exportpdf()
