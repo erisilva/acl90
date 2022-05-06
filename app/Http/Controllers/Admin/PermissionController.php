@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\DB;
 use App\Exports\PermissionsExport;
 use Maatwebsite\Excel\Facades\Excel;
 
+use Barryvdh\DomPDF\Facade\Pdf;
+
 class PermissionController extends Controller
 {
     public function __construct()
@@ -214,6 +216,30 @@ class PermissionController extends Controller
         if (Gate::denies('permission-export')) {
             abort(403, 'Acesso negado.');
         }
+
+        # tratamento dos filtros
+        $filter_name = (request()->has('name') ? request('name') : '');
+        
+        $filter_description = (request()->has('description') ? request('description') : '');
+
+        # criação do dataset
+        $dataset = new Permission;
+
+        $dataset = $dataset->select('name', 'description');
+
+        if (!empty($filter_name)){
+            $dataset = $dataset->where('name', 'like', '%' . $filter_name . '%');    
+        }
+
+        if (!empty($filter_description)){
+            $dataset = $dataset->Where('description', 'like', '%' . $filter_description . '%');
+        }
+
+        $dataset = $dataset->get();
+
+        $pdf = PDF::loadView('admin.permissions.report', compact('dataset'));
+        
+        return $pdf->download('Permissoes_' .  date("Y-m-d H:i:s") . '.pdf');
 
     }         
 }

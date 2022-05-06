@@ -1,0 +1,60 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <style>
+            @page {
+                margin: 0cm 0cm;
+            }
+
+            body {
+                margin-top: 2cm;
+                margin-left: 2cm;
+                margin-right: 2cm;
+                margin-bottom: 2cm;
+            }
+
+            header {
+                position: fixed;
+                top: 0cm;
+                left: 0cm;
+                right: 0cm;
+                height: 2cm;
+
+                /** Extra personal styles **/
+                background-color: rgb(179, 179, 179);
+                color: white;
+                text-align: center;
+                line-height: 1.5cm;
+            }
+
+            footer {
+                position: fixed; 
+                bottom: 0cm; 
+                left: 0cm; 
+                right: 0cm;
+                height: 2cm;
+
+                /** Extra personal styles **/
+                background-color: rgb(179, 179, 179);
+                color: white;
+                text-align: center;
+                line-height: 1.5cm;
+            }
+
+            footer .page-number:after { content: counter(page); }
+    </style>
+</head>
+    <body>
+        <header>
+            Header
+        </header>
+
+        <footer>
+          <span>{{ date('d/m/Y H:i:s') }} - </span><span class="page-number">Página </span>         
+        </footer>
+
+        <main>
+            <!-- Your main content -->
+        </main>
+    </body>
+</html>

@@ -18,6 +18,8 @@ use Illuminate\Support\Facades\DB;
 use App\Exports\UsersExport;
 use Maatwebsite\Excel\Facades\Excel;
 
+use Barryvdh\DomPDF\Facade\Pdf;
+
 class UserController extends Controller
 {
     public function __construct()
@@ -266,5 +268,28 @@ class UserController extends Controller
             abort(403, 'Acesso negado.');
         }
 
+        # tratamento dos filtros
+        $filter_name = (request()->has('name') ? request('name') : '');
+        
+        $filter_email = (request()->has('email') ? request('description') : '');
+
+        # criação do dataset
+        $dataset = new User;
+
+        $dataset = $dataset->select('name', 'email');
+
+        if (!empty($filter_name)){
+            $dataset = $dataset->where('name', 'like', '%' . $filter_name . '%');    
+        }
+
+        if (!empty($filter_email)){
+            $dataset = $dataset->Where('email', 'like', '%' . $filter_email . '%');
+        }
+
+        $dataset = $dataset->get();
+
+        $pdf = PDF::loadView('admin.users.report', compact('dataset'));
+        
+        return $pdf->download('Users_' .  date("Y-m-d H:i:s") . '.pdf');
     }     
 }

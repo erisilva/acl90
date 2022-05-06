@@ -6,17 +6,17 @@ Esse é um projeto base para projetos que eu desenvolvo.
 
 **Esse é um projeto pessoal**, existem alternativos como sugerido na documentação oficial de [instalação do Laravel](https://laravel.com/docs/9.x/installation).
 
-Constuído com a framework [Laravel 9](https://laravel.com/) e utiliza como front-end o [Bootstrap 5.1](https://getbootstrap.com/).
+Desenvolvido com a framework [Laravel 9](https://laravel.com/) e utiliza como front-end o [Bootstrap 5.1](https://getbootstrap.com/).
 
 #### Bibliotecas (que podem ser) utilizadas nos projetos:
 
-- [typeahead](https://github.com/corejavascript/typeahead.js)
-- [bootstrap-datepicker](https://github.com/uxsolutions/bootstrap-datepicker)
-- [Inputmask](https://github.com/RobinHerbots/Inputmask)
-- [Bootstrap Multiselect](https://github.com/davidstutz/bootstrap-multiselect)
 - [Captcha for Laravel](https://github.com/mewebstudio/captcha) Nota: Habilitar a extenção extension=gd no php.ini
-- [Laravel package for Fpdf](https://github.com/codedge/laravel-fpdf) **Muito velha**
-- [laravel excel export lib](https://laravel-excel.com/)
+- [Laravel DomPdf](https://github.com/barryvdh/laravel-dompdf) Exportação de dados para PDF
+- [laravel excel export lib](https://laravel-excel.com/) Exportação de dados para XLSX e CSV
+- [typeahead](https://github.com/corejavascript/typeahead.js) Criação de campo de autocompletar
+- [bootstrap-datepicker](https://github.com/uxsolutions/bootstrap-datepicker) Campo de data/hora customizável compatível com bootstrap
+- [Inputmask](https://github.com/RobinHerbots/Inputmask) Máscaras para os campos dos formulários
+- [Bootstrap Multiselect](https://github.com/davidstutz/bootstrap-multiselect) Campo de seleção multipla de ítens compátivel com bootstrap
 - Utilizo os temas do site [Bootswatch](https://bootswatch.com/)
 
 ## Requisitos
